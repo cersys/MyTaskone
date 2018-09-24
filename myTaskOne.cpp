@@ -1,4 +1,4 @@
-//æœ¬ä»£ç ä½¿ç”¨äº†C++11æ ‡å‡†ï¼Œç¼–è¯‘æ˜¯éœ€è¦ç¡®å®šç¼–è¯‘å™¨æ˜¯å¦æ”¯æŒC++11æ ‡å‡† 
+//±¾´úÂëÊ¹ÓÃÁËC++11±ê×¼£¬±àÒëÇ°ĞèÒªÈ·¶¨±àÒëÆ÷ÊÇ·ñÖ§³ÖC++11±ê×¼ 
 
 #include <bits/stdc++.h>
 #include <direct.h>
@@ -14,7 +14,7 @@ string name,pwd;
 string op[20] = {"+","-","*","/","^2","^0.5","cos","sin","tan"};
 
 char path[250];
-//è·å–å½“å‰æ—¶é—´ 
+//»ñÈ¡µ±Ç°Ê±¼ä 
 string getTime(){
 	time_t timep;
 	time (&timep);
@@ -22,102 +22,160 @@ string getTime(){
 	strftime(tmp,sizeof(tmp),"%Y-%m-%d-%H-%M-%S",localtime(&timep));
 	return tmp;
 }
-//è·å–å­˜æ”¾æ–‡ä»¶è·¯å¾„ 
+//»ñÈ¡´æ·ÅÎÄ¼şÂ·¾¶ 
 void getPath(string p){
 	string dir = ".\\"; dir.append(p);
 	if(access(dir.c_str(),0) == -1){
 		int flag = mkdir(dir.c_str());
-		if(flag==-1) cout<<"Errorï¼Can not make directory!"<<endl;
+		if(flag==-1) cout<<"Error£¡Can not make directory!"<<endl;
 	}
 	dir.append("\\"); dir.append(getTime());
 	dir.append(".txt");
 	
 	for(int i=0; i<dir.size(); ++i) path[i] = dir[i];
 }
-//æ˜¯å¦åˆ‡æ¢å‡ºé¢˜ç±»å‹ 
+//ÊÇ·ñÇĞ»»³öÌâÀàĞÍ 
 int isChange(string a){
-	if(a == "åˆ‡æ¢ä¸ºå°å­¦") return 1;
-	else if(a == "åˆ‡æ¢ä¸ºåˆä¸­") return 2;
-	else if(a == "åˆ‡æ¢ä¸ºé«˜ä¸­") return 3;
+	if(a == "ÇĞ»»ÎªĞ¡Ñ§") return 1;
+	else if(a == "ÇĞ»»Îª³õÖĞ") return 2;
+	else if(a == "ÇĞ»»Îª¸ßÖĞ") return 3;
 	return 0; 
 }
-//ç”Ÿæˆå¸¦æ‹¬å·çš„é¢˜ç›® 
+//Éú³É´øÀ¨ºÅµÄÌâÄ¿ 
 string makeKh(){
 	string ret = to_string(rand()%100+1)+" * ((" + to_string(rand()%100+1) + " + "  + to_string(rand()%100+1) + ") / "
 				+  to_string(rand()%100+1) + ") = ";
 	return ret;
 }
-
-//æ¯”è¾ƒæ˜¯å¦æœ‰é‡å¤çš„é¢˜ç›®
-bool cmp(string p, string s){
-	
-} 
-//åˆå§‹åŒ–ç”¨æˆ· 
-void init(){
-    user[1].type = 1; user[1].name = "å¼ ä¸‰1"; user[1].password = "123";
-    user[2].type = 1; user[2].name = "å¼ ä¸‰2"; user[2].password = "123";
-    user[3].type = 1; user[3].name = "å¼ ä¸‰3"; user[3].password = "123";
-    user[4].type = 2; user[4].name = "æå››1"; user[4].password = "123";
-    user[5].type = 2; user[5].name = "æå››2"; user[5].password = "123";
-    user[6].type = 2; user[6].name = "æå››3"; user[6].password = "123";
-    user[7].type = 3; user[7].name = "ç‹äº”1"; user[7].password = "123";
-    user[8].type = 3; user[8].name = "ç‹äº”2"; user[8].password = "123";
-    user[9].type = 3; user[9].name = "ç‹äº”3"; user[9].password = "123";
-}
-//ç”Ÿæˆé¢˜ç›® 
-void createProblems(int type,int num){
-	int cas = 0;
-    if(type==1){ 						//å°å­¦ 
-    	getPath(name);
-        freopen(path,"w",stdout);
-        srand((int)time(0));
-        while(num--){
-        	cout<<++cas<<": ";
-        	int kh = rand()%4;
-          	if(kh==3) cout<<makeKh()<<endl;
-          	else{
-          		int t = rand()%(5-2+1)+1;
-            	while(t--){
-                	cout<<rand()%100+1<<" "<<op[rand()%4]<<" ";
-            	}
-            	cout<<rand()%100+1<<" ="<<endl;
-			}
-//	        if(!cmp(name,path)){
-//	        	deleteTxt(path);
-//			}else break;
-        }
-    }else if(type==2){ 					//åˆä¸­ 
-        getPath(name);
-        freopen(path,"w",stdout);
-        srand((int)time(0));
-        while(num--){
-        	cout<<++cas<<": ";
-            int t = rand()%(5-2+1)+1;
-            while(t--){
-                cout<<rand()%100+1<<" ";
-                int optmp = rand()%6;
-                if(optmp>=4) cout<<op[optmp]<<" "<<op[rand()%4]<<" ";
-                else cout<<op[optmp]<<" ";
-            }
-            cout<<rand()%100+1<<op[rand()%(5-4+1)+4]<<" ="<<endl;
-        }
-    }else{ 							//é«˜ä¸­ 
-        getPath(name);
-        freopen(path,"w",stdout);
-        srand((int)time(0));
-        while(num--){
-        	cout<<++cas<<": ";
-            int t = rand()%(4-2+1)+1;
-            while(t--){
-                cout<<rand()%100+1<<" ";
-                int optmp = rand()%9;
-                if(optmp>=4&&optmp<6) cout<<op[optmp]<<" "<<op[rand()%4]<<" ";
-                else if(optmp >=6) cout<<op[rand()%4]<<" "<< op[optmp] <<rand()%361<<" "<<op[rand()%4]<<" ";
-                else cout<<op[optmp]<<" ";
-            }
-            cout<<op[rand()%(8-6+1)+6]<<rand()%361<<" ="<<endl;
-        }
+//»ñÈ¡µ±Ç°ÎÄ¼ş¼ĞÏÂËùÓĞÎÄ¼ş 
+void getFiles( string path, vector<string>& files )  
+{  
+    //ÎÄ¼ş¾ä±ú 
+    long  hFile = 0;  
+    //ÎÄ¼şĞÅÏ¢
+    struct _finddata_t fileinfo;  
+    string p;
+    if((hFile = _findfirst(p.assign(path).append("\\*").c_str(),&fileinfo)) != -1)  
+    {  
+        do
+        {  
+            //Èç¹ûÊÇÄ¿Â¼,µü´úÖ®  
+            //Èç¹û²»ÊÇ,¼ÓÈëÁĞ±í  
+            if((fileinfo.attrib &  _A_SUBDIR))  
+            {  
+                if(strcmp(fileinfo.name,".") != 0  &&  strcmp(fileinfo.name,"..") != 0)  
+                    getFiles( p.assign(path).append("\\").append(fileinfo.name), files );  
+            }  
+            else  
+            {  
+                files.push_back(p.assign(path).append("\\").append(fileinfo.name) );  
+            }  
+        }while(_findnext(hFile, &fileinfo)  == 0);  
+        _findclose(hFile);  
     }
+}
+
+char command[100] = {0};
+//±È½ÏÊÇ·ñÓĞÖØ¸´µÄÌâÄ¿
+bool cmp(string p){
+	vector<string> files;
+	string dir = ".\\"; dir.append(p);
+	getFiles(dir,files);
+	for(int i=0; i<files.size(); ++i){
+		if(files[i].c_str() != path){
+			sprintf(command, "FC /B \"%s\" \"%s\" |find \"FC:ÕÒ²»µ½²îÒì\" >temp.txt",files[i].c_str(),path);
+			system(command);
+			memset(command,0,100);
+			FILE *file = fopen("temp.txt","r");
+			fread(command,1,100,file);
+			fclose(file);
+			if(command[0]=='\0')continue;
+			else return false;
+			system("del temp.txt");
+		} 
+	}
+	return true;
+} 
+//³õÊ¼»¯ÓÃ»§ 
+void init(){
+    user[1].type = 1; user[1].name = "ÕÅÈı1"; user[1].password = "123";
+    user[2].type = 1; user[2].name = "ÕÅÈı2"; user[2].password = "123";
+    user[3].type = 1; user[3].name = "ÕÅÈı3"; user[3].password = "123";
+    user[4].type = 2; user[4].name = "ÀîËÄ1"; user[4].password = "123";
+    user[5].type = 2; user[5].name = "ÀîËÄ2"; user[5].password = "123";
+    user[6].type = 2; user[6].name = "ÀîËÄ3"; user[6].password = "123";
+    user[7].type = 3; user[7].name = "ÍõÎå1"; user[7].password = "123";
+    user[8].type = 3; user[8].name = "ÍõÎå2"; user[8].password = "123";
+    user[9].type = 3; user[9].name = "ÍõÎå3"; user[9].password = "123";
+}
+//Éú³ÉÌâÄ¿ 
+void createProblems(int type,int num){
+	ofstream outfile;
+	int cas = 0;
+    if(type==1){
+		while(1){ 						//Ğ¡Ñ§ 
+	    	getPath(name);
+	        outfile.open(path);
+	        srand((int)time(0));
+	        while(num--){
+	        	outfile<<++cas<<": ";
+	        	int kh = rand()%4;
+	          	if(kh==3) outfile<<makeKh()<<endl;
+	          	else{
+	          		int t = rand()%(5-2+1)+1;
+	            	while(t--){
+	                	outfile<<rand()%100+1<<" "<<op[rand()%4]<<" ";
+	            	}
+	            	outfile<<rand()%100+1<<" ="<<endl;
+				}
+	        }
+		     if(!cmp(name)){ //²éÖØ 
+		        remove(path); //ÖØ¸´µÄ»°É¾³ı¸ÃÎÄ¼ş 
+			}else break;    //·ñÔòÍË³ö 
+		}
+    }else if(type==2){ 					//³õÖĞ
+		while(1){
+			getPath(name);
+	        outfile.open(path);
+	        srand((int)time(0));
+	        while(num--){
+	        	outfile<<++cas<<": ";
+	            int t = rand()%(5-2+1)+1;
+	            while(t--){
+	                outfile<<rand()%100+1<<" ";
+	                int optmp = rand()%6;
+	                if(optmp>=4) outfile<<op[optmp]<<" "<<op[rand()%4]<<" ";
+	                else outfile<<op[optmp]<<" ";
+	            }
+	            outfile<<rand()%100+1<<op[rand()%(5-4+1)+4]<<" ="<<endl;
+	        }
+	        if(!cmp(name)){ //²éÖØ 
+			    remove(path); //ÖØ¸´µÄ»°É¾³ı¸ÃÎÄ¼ş 
+			}else break;    //·ñÔòÍË³ö 
+		}
+    }else{							//¸ßÖĞ 
+    	while(1){
+    		getPath(name);
+	        outfile.open(path);
+	        srand((int)time(0));
+	        while(num--){
+	        	outfile<<++cas<<": ";
+	            int t = rand()%(4-2+1)+1;
+	            while(t--){
+	                outfile<<rand()%100+1<<" ";
+	                int optmp = rand()%9;
+	                if(optmp>=4&&optmp<6) outfile<<op[optmp]<<" "<<op[rand()%4]<<" ";
+	                else if(optmp >=6) outfile<<op[rand()%4]<<" "<< op[optmp] <<rand()%361<<" "<<op[rand()%4]<<" ";
+	                else outfile<<op[optmp]<<" ";
+	            }
+	            outfile<<op[rand()%(8-6+1)+6]<<rand()%361<<" ="<<endl;
+	        }
+	        if(!cmp(name)){ //²éÖØ 
+			    remove(path); //ÖØ¸´µÄ»°É¾³ı¸ÃÎÄ¼ş 
+			}else break;    //·ñÔòÍË³ö
+	    }
+	} 
+	outfile.close();   
 }
 
 
@@ -125,7 +183,7 @@ int main(int argc, char const *argv[])
 {
     init();
     int type = 0;
-    cout<<"è¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç ï¼ˆç”¨ä¸€ä¸ªç©ºæ ¼éš”å¼€ï¼‰: "<<endl;
+    cout<<"ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë£¨ÓÃÒ»¸ö¿Õ¸ñ¸ô¿ª£©: "<<endl;
     while(cin>>name>>pwd){
         int is_ok = 0;
         for(int i=1; i<=9; ++i){
@@ -136,28 +194,28 @@ int main(int argc, char const *argv[])
             }
         }
         if(is_ok) break;
-        cout<<"è´¦æˆ·æˆ–å¯†ç é”™è¯¯ï¼Œè¯·è¾“å…¥æ­£ç¡®çš„ç”¨æˆ·åã€å¯†ç ï¼š"<<endl;
+        cout<<"ÕË»§»òÃÜÂë´íÎó£¬ÇëÊäÈëÕıÈ·µÄÓÃ»§Ãû¡¢ÃÜÂë£º"<<endl;
     }
 
-    cout<<"å‡†å¤‡ç”Ÿæˆ";
-    if(type==1) cout<<"å°å­¦";
-    else if(type==2) cout<<"åˆä¸­";
-    else cout<<"é«˜ä¸­";
-    cout<<"æ•°å­¦é¢˜ç›®ï¼Œè¯·è¾“å…¥ç”Ÿæˆé¢˜ç›®æ•°é‡ï¼š"<<endl;
+    cout<<"×¼±¸Éú³É";
+    if(type==1) cout<<"Ğ¡Ñ§";
+    else if(type==2) cout<<"³õÖĞ";
+    else cout<<"¸ßÖĞ";
+    cout<<"ÊıÑ§ÌâÄ¿£¬ÇëÊäÈëÉú³ÉÌâÄ¿ÊıÁ¿£º"<<endl;
     
     string ml; int flag = 0;
-    while(cin>>ml&&!isdigit(ml[0])){ 		//åˆ¤æ–­æ˜¯å¦åˆ‡æ¢ 
+    while(cin>>ml&&!isdigit(ml[0])){ 		//ÅĞ¶ÏÊÇ·ñÇĞ»» 
     	if(isChange(ml)) {
     		type = isChange(ml);
     		flag = 1;
-    		cout<<"å‡†å¤‡ç”Ÿæˆ";
-		    if(type==1) cout<<"å°å­¦";
-		    else if(type==2) cout<<"åˆä¸­";
-		    else cout<<"é«˜ä¸­";
-		    cout<<"æ•°å­¦é¢˜ç›®ï¼Œè¯·è¾“å…¥ç”Ÿæˆé¢˜ç›®æ•°é‡ï¼š"<<endl;
+    		cout<<"×¼±¸Éú³É";
+		    if(type==1) cout<<"Ğ¡Ñ§";
+		    else if(type==2) cout<<"³õÖĞ";
+		    else cout<<"¸ßÖĞ";
+		    cout<<"ÊıÑ§ÌâÄ¿£¬ÇëÊäÈëÉú³ÉÌâÄ¿ÊıÁ¿£º"<<endl;
     		break;
 		}
-		cout<<"è¯·è¾“å…¥åˆ‡æ¢ä¸º(å°å­¦ã€åˆä¸­æˆ–é«˜ä¸­)ä¸‰ä¸ªé€‰é¡¹ä¸­çš„ä¸€ä¸ª"<<endl; 
+		cout<<"ÇëÊäÈëÇĞ»»Îª(Ğ¡Ñ§¡¢³õÖĞ»ò¸ßÖĞ)Èı¸öÑ¡ÏîÖĞµÄÒ»¸ö"<<endl; 
 	}
     int num = 0;
     if(flag) cin>>num;
@@ -168,10 +226,13 @@ int main(int argc, char const *argv[])
 	}
     do{
         if(num>=10 && num <=30) break;
-        cout<<"è¾“å…¥çš„é¢˜ç›®æ•°é‡æ— æ•ˆï¼Œè¯·é‡æ–°è¾“å…¥ï¼ˆæœ‰æ•ˆèŒƒå›´:[10,30]): "<<endl;
+        cout<<"ÊäÈëµÄÌâÄ¿ÊıÁ¿ÎŞĞ§£¬ÇëÖØĞÂÊäÈë£¨ÓĞĞ§·¶Î§:[10,30]): "<<endl;
     }while(cin>>num);
 
-	//å¼€å§‹ç”Ÿæˆé¢˜ç›® 
+	//¿ªÊ¼Éú³ÉÌâÄ¿ 
 	createProblems(type,num);
+
+	printf("\n<------Éú³ÉÌâÄ¿Íê³É£¬×Ô¶¯ÍË³öÏµÍ³------->\n");
     return 0;
 }
+
